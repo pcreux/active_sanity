@@ -52,4 +52,4 @@ CODE
 inject_into_file 'config/application.rb', custom_batch_size_code, after: " < Rails::Application\n"
 
 run 'bundle'
-rake 'db:migrate'
+rake 'db:drop db:create db:migrate'

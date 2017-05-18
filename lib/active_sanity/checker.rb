@@ -31,6 +31,12 @@ module ActiveSanity
 
       @models ||= direct_active_record_base_descendants
       @models -= [InvalidRecord]
+      if File.exist?('active_sanity.ignore.yml')
+        yaml_contents = YAML.load_file('active_sanity.ignore.yml')
+        model_names_to_ignore = Array(yaml_contents['models'] || []).uniq
+        @models = @models.reject { |model| model_names_to_ignore.include?(model.name) }
+      end
+      @models
     end
 
     protected

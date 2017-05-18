@@ -46,6 +46,10 @@ Given /^the first author's username is empty and the first post category_id is n
   Post.first.update_attribute(:category_id, nil)
 end
 
+Given /^the User class is ignored$/ do
+  system("echo 'models: User' > active_sanity.ignore.yml")
+end
+
 Given /^the first author's username is "([^"]*)"$/ do |username|
   Author.first.update_attribute('username', username)
 end
