@@ -23,7 +23,7 @@ end
 Given /^I have a rails app using 'active_sanity' with db storage$/ do
   setup_rails_app
 
-  fail unless system('cd ./test/rails_app && rails generate active_sanity && RAILS_ENV=test rake db:migrate')
+  fail unless system('cd ./test/rails_app && rails generate active_sanity && RAILS_ENV=test bundle exec rake db:migrate')
 
   require './test/rails_app/config/environment'
 
