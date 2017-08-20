@@ -54,7 +54,8 @@ module ActiveSanity
     #
     # Should return: [Account, User]
     def direct_active_record_base_descendants
-      ActiveRecord::Base.descendants.select(&:descends_from_active_record?).sort_by(&:name)
+      parent_class = defined?(ApplicationRecord) ? ApplicationRecord : ActiveRecord::Base
+      parent_class.descendants.select(&:descends_from_active_record?).sort_by(&:name)
     end
 
     # Remove records that are now valid from the list of invalid records.

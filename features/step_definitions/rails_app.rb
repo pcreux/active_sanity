@@ -1,7 +1,7 @@
 def setup_rails_app
   return if File.directory?('test/rails_app')
 
-  unless system 'bundle exec rails new test/rails_app -m test/rails_template.rb && cd ./test/rails_app && RAILS_ENV=test rake db:migrate'
+  unless system 'bundle exec rails new test/rails_app -m test/rails_template.rb && cd ./test/rails_app && RAILS_ENV=test bundle exec rake db:migrate'
     system('rm -fr test/rails_app')
     fail 'Failed to generate test/rails_app'
   end
@@ -23,7 +23,7 @@ end
 Given /^I have a rails app using 'active_sanity' with db storage$/ do
   setup_rails_app
 
-  fail unless system('cd ./test/rails_app && rails generate active_sanity && RAILS_ENV=test rake db:migrate')
+  fail unless system('cd ./test/rails_app && bundle exec rails generate active_sanity && RAILS_ENV=test bundle exec rake db:migrate')
 
   require './test/rails_app/config/environment'
 
@@ -59,7 +59,7 @@ Given /^the first post title is empty$/ do
 end
 
 When /^I run "([^"]*)"$/ do |command|
-  puts @output = `cd ./test/rails_app && export RAILS_ENV=test && bundle exec #{command} --trace; echo "RETURN:$?"`
+  puts @output = `cd ./test/rails_app && RAILS_ENV=test bundle exec #{command} --trace; echo "RETURN:$?"`
   fail unless @output['RETURN:0']
 end
 

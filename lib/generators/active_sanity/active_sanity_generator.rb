@@ -19,8 +19,18 @@ module ActiveSanity
       end
 
       def create_migration_file
-        migration_template 'create_invalid_records.rb', 'db/migrate/create_invalid_records.rb'
+        migration_template 'create_invalid_records.rb.erb', 'db/migrate/create_invalid_records.rb'
       end
+
+      # Used by migration file
+      def rails_version
+        if Rails.version >= "5"
+          "[#{Rails.version.gsub(/\.\d+$/, '')}]" # 5.0
+        else
+          nil
+        end
+      end
+
     end
   end
 end

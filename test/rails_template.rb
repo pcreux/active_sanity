@@ -1,5 +1,6 @@
-
 # Generate some test models
+
+BASE_MODEL_CLASS = Rails.version >= "5." ? "ApplicationRecord" : "ActiveRecord::Base"
 
 # Post
 generate :model, 'post title:string body:text published_at:datetime author_id:integer category_id:integer'
@@ -10,7 +11,7 @@ post_code = <<-CODE
 
   validates :author, :category, :title, :published_at, presence: true
 CODE
-inject_into_file 'app/models/post.rb', post_code, after: "class Post < ActiveRecord::Base\n"
+inject_into_file 'app/models/post.rb', post_code, after: "class Post < #{BASE_MODEL_CLASS}\n"
 
 # Category
 generate :model, 'category name:string description:text'
@@ -19,7 +20,7 @@ category_code = <<-CODE
 
   validates :name, presence: true
 CODE
-inject_into_file 'app/models/category.rb', category_code, after: "class Category < ActiveRecord::Base\n"
+inject_into_file 'app/models/category.rb', category_code, after: "class Category < #{BASE_MODEL_CLASS}\n"
 
 # User
 generate :model, 'user first_name:string last_name:string username:string type:string'
@@ -29,7 +30,7 @@ user_code = <<-CODE
   validates :first_name, :last_name, :username, presence: true
   validates :username, length: { minimum: 3 }
 CODE
-inject_into_file 'app/models/user.rb', user_code, after: "class User < ActiveRecord::Base\n"
+inject_into_file 'app/models/user.rb', user_code, after: "class User < #{BASE_MODEL_CLASS}\n"
 
 # Author < User
 create_file 'app/models/author.rb', 'class Author < User; end'
