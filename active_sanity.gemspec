@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = 'Performs a Sanity Check of your database by logging all invalid Active Records'
   s.homepage    = 'https://github.com/pcreux/active_sanity'
 
-  s.add_dependency 'rails', '>=4.0'
+  s.add_dependency 'rails', '< 5.0'
 
   s.required_ruby_version = '>= 1.9.3'
 
