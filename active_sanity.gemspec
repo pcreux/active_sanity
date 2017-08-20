@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = 'active_sanity'
   s.version     = ActiveSanity::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ['VersaPay', 'Philippe Creux']
-  s.email       = ['philippe.creux@versapay.com']
+  s.authors     = ['Philippe Creux']
+  s.email       = ['pcreux@gmail.com']
   s.summary     = 'Checks Sanity of Active Record records'
   s.description = 'Performs a Sanity Check of your database by logging all invalid Active Records'
-  s.homepage    = 'https://github.com/versapay/active_sanity'
+  s.homepage    = 'https://github.com/pcreux/active_sanity'
 
   s.add_dependency 'rails', '>=4.0'
 
