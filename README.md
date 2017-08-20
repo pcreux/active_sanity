@@ -29,7 +29,7 @@ Just run:
     rake db:check_sanity
 
 ActiveSanity will iterate over every records of all your models to check
-weither they're valid or not. It will save invalid records in the table
+whether they're valid or not. It will save invalid records in the table
 invalid_records if it exists and output all invalid records.
 
 The output might look like the following:
@@ -39,13 +39,19 @@ The output might look like the following:
     Flight      | 123 | { "arrival_time" => ["can't be nil"], "departure_time" => ["is invalid"] }
     Flight      | 323 | { "arrival_time" => ["can't be nil"] }
 
-By default, the number of records fetched from the database for validation is set to 500. If this causes any issues in your domain/codebase, you can configure it this way in 'config\application.rb' (or 'config\environments\test.rb'):
+By default, the number of records fetched from the database for validation is set to 500. If this causes any issues in your domain/codebase, you can configure it this way in `config\application.rb` (or `config\environments\test.rb`):
 
     class Application < Rails::Application
       config.after_initialize do
         ActiveSanity::Checker.batch_size = 439
       end
     end
+
+If you want to ignore certain models from being verified, you can create a file named `active_sanity.ignore.yml` at the root of your project with the following structure
+
+    models:
+      - '<name of class to ignore>'
+      - '<name of class to ignore>'
 
 
 ## Contribute & Dev environment

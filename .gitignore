@@ -5,3 +5,4 @@
 Gemfile.lock
 pkg/*
 test/rails_app
+active_sanity.ignore.yml
