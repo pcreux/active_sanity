@@ -1,6 +1,6 @@
 # Active Sanity
 
-[![Build Status](https://secure.travis-ci.org/versapay/active_sanity.png)](http://travis-ci.org/versapay/active_sanity)
+[![Build Status](https://secure.travis-ci.org/pcreux/active_sanity.png)](http://travis-ci.org/pcreux/active_sanity)
 
 Perform a sanity check on your database through active record
 validation.
