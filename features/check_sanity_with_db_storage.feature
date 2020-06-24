@@ -23,7 +23,7 @@ Feature: Check sanity with db storage
     When I run "rake db:check_sanity"
     Then the table "invalid_records" should contain:
       | User     | 1 | {:username=>["can't be blank", "is too short (minimum is 3 characters)"]} |
-      | Post     | 1 | {:category=>["can't be blank"]} |
+      | Post     | 1 | {:category=>["must exist", "can't be blank"]} |
 
   Scenario: Check sanity on database with invalid records now valid
     Given the database contains a few valid records
@@ -31,12 +31,12 @@ Feature: Check sanity with db storage
     When I run "rake db:check_sanity"
     Then the table "invalid_records" should contain:
       | User     | 1 | {:username=>["can't be blank", "is too short (minimum is 3 characters)"]} |
-      | Post     | 1 | {:category=>["can't be blank"]} |
+      | Post     | 1 | {:category=>["must exist", "can't be blank"]} |
 
     Given the first author's username is "Greg"
     When I run "rake db:check_sanity"
     Then the table "invalid_records" should contain:
-      | Post     | 1 | {:category=>["can't be blank"]} |
+      | Post     | 1 | {:category=>["must exist", "can't be blank"]} |
     Then the table "invalid_records" should not contain errors for "User" "1"
 
   Scenario: Check sanity on database with invalid records that were invalid for different reasons earlier
@@ -45,7 +45,7 @@ Feature: Check sanity with db storage
     When I run "rake db:check_sanity"
     Then the table "invalid_records" should contain:
       | User     | 1 | {:username=>["can't be blank", "is too short (minimum is 3 characters)"]} |
-      | Post     | 1 | {:category=>["can't be blank"]} |
+      | Post     | 1 | {:category=>["must exist", "can't be blank"]} |
 
     Given the first post category is set
     And the first post title is empty
