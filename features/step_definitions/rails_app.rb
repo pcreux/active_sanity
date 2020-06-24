@@ -1,10 +1,19 @@
+SystemCommandFailed = Class.new(StandardError)
+
+def system!(cmd)
+  system(cmd) || raise(SystemCommandFailed, cmd)
+end
+
 def setup_rails_app
   return if File.directory?('test/rails_app')
 
-  unless system 'bundle exec rails new test/rails_app -m test/rails_template.rb && cd ./test/rails_app && RAILS_ENV=test bundle exec rake db:migrate'
-    system('rm -fr test/rails_app')
-    fail 'Failed to generate test/rails_app'
-  end
+  system! 'bundle exec rails new test/rails_app --skip-sprockets --skip-spring --skip-javascript --skip-turbolinks'
+  system! 'cd ./test/rails_app && bundle'
+  system! 'cd ./test/rails_app && bin/rails app:template LOCATION=../rails_template.rb'
+  system!' cd ./test/rails_app && RAILS_ENV=test bin/rails db:migrate'
+rescue SystemCommandFailed => e
+  system!('rm -fr test/rails_app')
+  raise e
 end
 
 Given /^I have a rails app using 'active_sanity'$/ do
@@ -29,14 +38,14 @@ Given /^I have a rails app using 'active_sanity' with db storage$/ do
 
   # Reset connection
   ActiveRecord::Base.connection.reconnect!
-  InvalidRecord.table_exists? # Looks up if table exists.
+  InvalidRecord.table_exists?.should be true # Looks up if table exists.
 end
 
 Given /^the database contains a few valid records$/ do
   Author.create!(first_name: 'Greg', last_name: 'Bell', username: 'gregbell')
   Publisher.create!(first_name: 'Sam',  last_name: 'Vincent', username: 'samvincent')
   Category.create!(name: 'Uncategorized')
-  Post.create!(author: Author.first, category: Category.first,
+  Post.create!(author: Author.first!, category: Category.first!,
     title: 'How ActiveAdmin changed the world', body: 'Lot of love.',
     published_at: 4.years.from_now)
 end
