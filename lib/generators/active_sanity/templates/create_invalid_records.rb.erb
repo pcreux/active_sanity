@@ -1,5 +1,5 @@
-class CreateInvalidRecords < ActiveRecord::Migration<%= rails_version %>
-  def self.up
+class CreateInvalidRecords < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+  def up
     create_table :invalid_records do |t|
       t.references :record, polymorphic: true, null: false
       t.text :validation_errors
@@ -7,7 +7,7 @@ class CreateInvalidRecords < ActiveRecord::Migration<%= rails_version %>
     end
   end
 
-  def self.down
+  def down
     drop_table :invalid_records
   end
 end
