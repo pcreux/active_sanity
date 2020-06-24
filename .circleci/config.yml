@@ -13,4 +13,6 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/bundle-install
-      - RAILS_ENV=test bundle exec cucumber
+      - run:
+          name: cucumber
+          command: RAILS_ENV=test bundle exec cucumber
