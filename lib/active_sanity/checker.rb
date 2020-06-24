@@ -112,7 +112,7 @@ module ActiveSanity
     def store_invalid_record(record)
       return unless InvalidRecord.table_exists?
 
-      invalid_record = InvalidRecord.where(record_type: type_of(record), record_id: record.id).first
+      invalid_record = InvalidRecord.where(record: record).first
       invalid_record ||= InvalidRecord.new
       invalid_record.record = record
       invalid_record.validation_errors = record.errors.messages
