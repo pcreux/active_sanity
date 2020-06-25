@@ -7,7 +7,7 @@ validation.
 
 ## Requirements
 
-* ActiveSanity ~0.5 Rails ~5.0 or ~6.0
+* ActiveSanity ~0.5 requires Rails ~5.0 or ~6.0
 * ActiveSanity ~0.3 and ~0.4 requires Rails ~4.0
 * ActiveSanity ~0.2 requires Rails ~3.1
 * ActiveSanity ~0.1 requires Rails ~3.0
